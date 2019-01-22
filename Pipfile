@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+click = "==6.7"
+itsdangerous = "==0.24"
+requests = "==2.19.1"
+Flask = "==1.0.2"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+Werkzeug = "==0.14.1"
+
+[dev-packages]
+ipython = "*"
+isort = "*"
+python-language-server = {extras = ["yapf","pycodestyle","mccabe","pyflakes","rope"], version = "*"}
+yapf = "*"
+pycodestyle = "*"
+mccabe = "*"
+pyflakes = "*"
+rope = "*"
+pyls-isort = "*"
+pyls-mypy = "*"
+
+[requires]
+python_version = "3.7"
