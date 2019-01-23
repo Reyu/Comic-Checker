@@ -11,6 +11,12 @@ Flask = "==1.0.2"
 "Jinja2" = "==2.10"
 MarkupSafe = "==1.0"
 Werkzeug = "==0.14.1"
+firebase-admin = "*"
+lxml = "*"
+google-cloud-storage = "*"
+google-cloud-error-reporting = "*"
+google-api-python-client = "*"
+google-cloud-logging = "*"
 
 [dev-packages]
 ipython = "*"
@@ -23,6 +29,7 @@ pyflakes = "*"
 rope = "*"
 pyls-isort = "*"
 pyls-mypy = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.7"
