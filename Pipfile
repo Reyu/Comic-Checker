@@ -13,10 +13,6 @@ MarkupSafe = "==1.0"
 Werkzeug = "==0.14.1"
 firebase-admin = "*"
 lxml = "*"
-google-cloud-storage = "*"
-google-cloud-error-reporting = "*"
-google-api-python-client = "*"
-google-cloud-logging = "*"
 
 [dev-packages]
 ipython = "*"
