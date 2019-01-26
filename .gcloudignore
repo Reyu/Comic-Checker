@@ -13,5 +13,6 @@
 .git
 .gitignore
 
+Session.vim
 node_modules
 #!include:.gitignore

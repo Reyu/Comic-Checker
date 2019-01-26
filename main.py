@@ -3,14 +3,22 @@ import os
 import firebase_admin
 import flask
 import json
+from jinja2 import Environment, ChoiceLoader, ModuleLoader, FileSystemLoader
 from firebase_admin import credentials, firestore
 # from lxml import html
 
 
+# === Globals ===
 cred = credentials.ApplicationDefault()
 firebase_admin.initialize_app(cred, {
     'projectId': os.environ.get('GCP_PROJECT')
     })
+db = firestore.client()
+jinja = Environment(
+        loader=ChoiceLoader([
+            ModuleLoader(os.path.abspath(os.curdir) + '/jinja.cache'),
+            FileSystemLoader(os.path.abspath(os.curdir) + '/templates')
+        ]))
 
 # === Helper Functions ===
 
@@ -36,23 +44,15 @@ def list_comics(request: flask.Request):
         Response object using `make_response`
         <http://flask.pocoo.org/docs/1.0/api/#flask.Flsk.make_response>.
     """
-    print('Fetching comics list')
-    db = firestore.client()
     comics_ref = db.collection(u'comics')
-    comics = comics_ref.get()
+    comics = {doc.id: doc.to_dict() for doc in comics_ref.get()}
+    response = flask.Response()
 
     if request_wants_json(request):
-        return (
-            json.dumps({doc.id: doc.to_dict() for doc in comics}),  # Body
-            200,                                                    # Status
-            {'content-type': 'application/json'}                    # Headers
-        )
+        response.content_type = 'application/json'
+        response.set_data(json.dumps(comics))
+    else:
+        template = jinja.get_template('list.jinja2')
+        response.set_data(template.render(comics=comics))
 
-    return (
-        "".join(
-            ['<a href="{url}">{name}</a><br />'.format(
-                    name=doc.id, url=doc.get(u'url')
-                ) for doc in comics]
-        ),
-        200
-    )
+    return response

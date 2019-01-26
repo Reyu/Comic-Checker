@@ -1,0 +1,5 @@
+<h1>Currently configured comics:</h1>
+<br /> <br />
+{% for name in comics -%}
+<a href="{{ comics[name]['url'] }}">{{ name }}</a> <br />
+{% endfor %}
